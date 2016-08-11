@@ -1,0 +1,16 @@
+{
+    "name": "thioz/katadev",
+    "authors": [
+        {
+            "name": "Rob Theeuwes",
+            "email": "dev@sourcerer.nl"
+        }
+    ],
+    "require": {},
+    "autoload":{
+      "prs-0" : {
+	"Kata\\": "vendor/kata/src/Kata"       
+
+      }
+    }
+}
