@@ -17,7 +17,7 @@ abstract class Store {
 	 * method to add a cart item
 	 */
 	
-	public abstract function addItem($item);
+	public abstract function addItem(Item $item);
 	
 	
 	public function itemsByProductId($productId){

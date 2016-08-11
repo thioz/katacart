@@ -9,7 +9,7 @@ use Kata\Cart\Store;
 
 class Memory extends Store{
 	
-	public function addItem($item)
+	public function addItem(Item $item)
 	{
 		$this->items[] = $item;
 	}

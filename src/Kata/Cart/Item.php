@@ -45,7 +45,7 @@ class Item
 	 * Number of products 
 	 * @var double/int
 	 */
-	protected $number = 1;
+	protected $quantity = 1;
 	
 	/**
 	 * Cumalative amount of this cart item
@@ -113,8 +113,8 @@ class Item
 	 * @param type $num
 	 * @return \Kata\Cart\Item
 	 */
-	public function setNumber($num){
-		$this->number = $num;
+	public function setQuantity($num){
+		$this->quantity = $num;
 		return $this;
 	}
 	
@@ -145,6 +145,22 @@ class Item
 	}
 	
 	/**
+	 * getter for quantity
+	 * @return double
+	 */
+	public function quantity(){
+		return $this->quantity;
+	}
+	
+	/**
+	 * getter for productId
+	 * @return int
+	 */
+	public function productId(){
+		return $this->productId;
+	}
+	
+	/**
 	 * Wrapper function to recalculate the total item amount and return it;
 	 * @return type
 	 */
@@ -155,7 +171,7 @@ class Item
 	
 	protected function calculateTotalAmount(){
 		
-		$actualNumber = $this->number / $this->unit;
+		$actualNumber = $this->quantity / $this->unit;
 		$this->totalAmount = $actualNumber * $this->unitPrice;
 	}
 	
