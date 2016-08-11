@@ -161,6 +161,14 @@ class Item
 	}
 	
 	/**
+	 * getter for unit
+	 * @return mixed
+	 */
+	public function unit(){
+		return $this->unit;
+	}
+	
+	/**
 	 * unit description getter
 	 * @return string
 	 */
