@@ -9,18 +9,25 @@ class Assert{
 	
 	protected $callable;
 	
-	public function __construct($callable)
+	public function __construct($callable = false)
 	{
-		$this->callable = $callable;
+		if($callable){
+			$this->callable = $callable;
+		}
 	}
 	
-	public function assert($item, $context){
-		return $this->call($item,$context);
+	public function assert($rule, $item, $context){
+		return $this->call($rule, $item,$context);
 	}
 	
-	protected function call($item, $context){
+	protected function call($rule, $item, $context){
+		
+		if(!is_callable($this->callable)){
+			return false;
+		}
+		
 		try{
-			$result = call_user_func_array($this->callable, [$item, $context]);
+			$result = call_user_func_array($this->callable, [$rule, $item, $context]);
 			return $result;
 		} catch (Exception $ex) {
 

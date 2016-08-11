@@ -1,5 +1,9 @@
 <?php
+
 namespace Kata\Cart\Rule;
+
+use Kata\Cart;
+use Kata\Cart\Rule;
 
 /**
  * A simple container for the rules 
@@ -13,73 +17,99 @@ namespace Kata\Cart\Rule;
  * 
  * 
  */
-
 class Container
 {
+
 	/**
 	 * the instance of the cart
-	 * @var \Kata\Cart
+	 * @var Cart
 	 */
 	protected $cart;
 	
+	/**
+	 * instance of Context
+	 * @var Context
+	 */
+	protected $context;
+
 	/**
 	 * array that holds the rules ... hence the name ;) 
 	 * @var array
 	 */
 	protected $rules = [];
-	public function __construct(\Kata\Cart $cart)
+
+	public function __construct(Cart $cart)
 	{
 		$this->cart = $cart;
 	}
-	
+
 	/**
 	 *  Add a rule to the list 
-	 * @param \Kata\Cart\Rule $rule
+	 * @param Rule $rule
 	 */
-	function add(Rule $rule){
+	function add(Rule $rule)
+	{
 		$this->rules[] = $rule;
 	}
-	
-	public function cart(){
+
+	public function cart()
+	{
 		return $this->cart;
 	}
-	
+
 	/**
 	 * Process the rules
 	 * Since rules have the ability to cancel the processing chain it's only logical that 
 	 * we iterate through the rules and then throught al the items 
 	 */
-	public function process(){
-		
-		$context = new Context($this);
-		foreach($this->rules as $rule){
+	public function process()
+	{
+
+		$context = $this->getContext();
+		foreach ($this->rules as $rule)
+		{
 			// check if the context has been cancelled
-			if($context->cancelled()){
+			if ($context->cancelled())
+			{
 				return $context;
 			}
-			
-			foreach($this->cart->items() as $item){
-				// check if the context has been cancelled
-				if($context->cancelled()){
-					break;
-				}
-				
-				// check if the rule applies to this item
-				if($rule->applies($item)){
-					$rule->apply($item, $context);
-				}
-			}
+
+			$this->processRule($rule);
 		}
 		return $context;
 	}
-	
-	/**
-	 * internal function to be able to select the rules that apply to a one cart item
-	 * @param int $productId
-	 */
-	protected function getRulesByProductId($productId){
-		$rules = [];
-		
+
+	protected function processRule($rule)
+	{
+		$context = $this->getContext();
+		foreach ($this->cart->items() as $item)
+		{
+			// check if the context has been cancelled
+			if ($context->cancelled())
+			{
+				break;
+			}
+
+			if (!$rule->enabled())
+			{
+				break;
+			}
+
+			// check if the rule applies to this item
+			if ($rule->applies($item))
+			{
+				$rule->apply($item, $context);
+			}
+		}
 	}
-	
+
+	public function getContext()
+	{
+		if (!$this->context)
+		{
+			$this->context = new Context($this);
+		}
+		return $this->context;
+	}
+
 }

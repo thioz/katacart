@@ -145,6 +145,14 @@ class Item
 	}
 	
 	/**
+	 * getter for unit
+	 * @return mixed
+	 */
+	public function unit(){
+		return $this->unit;
+	}
+	
+	/**
 	 * getter for quantity
 	 * @return double
 	 */
@@ -161,18 +169,18 @@ class Item
 	}
 	
 	/**
-	 * getter for unit
-	 * @return mixed
-	 */
-	public function unit(){
-		return $this->unit;
-	}
-	
-	/**
 	 * unit description getter
 	 * @return string
 	 */
-	public function unitdescription(){
+	public function unitdescription($useQuantity = false){
+		
+		if(is_array($this->unitDescription)){
+			if($useQuantity && $this->quantity>1){
+				return $this->unitDescription[1];
+			}
+			return $this->unitDescription[0];
+		}
+		
 		return $this->unitDescription;
 	}
 	

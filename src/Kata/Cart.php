@@ -24,6 +24,14 @@ class Cart{
 		return $this->store->items();
 	}
 	
+	public function totalamount(){
+		$total = 0.0;
+		foreach($this->items() as $item){
+			$total += $item->totalamount();
+		}
+		return $total;
+	}
+	
 	/**
 	 * Adds an item to the cart store
 	 * @param Item $item
