@@ -1,5 +1,5 @@
 {
-    "name": "thioz/katadev",
+    "name": "thioz/katacart",
     "authors": [
         {
             "name": "Rob Theeuwes",
@@ -9,7 +9,7 @@
     "require": {},
     "autoload":{
       "prs-0" : {
-	"Kata\\": "vendor/kata/src/Kata"       
+			"Kata\\": "vendor/kata/src/Kata"       
 
       }
     }
