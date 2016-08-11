@@ -6,9 +6,26 @@ namespace Kata\Cart\Rule;
  */
 
 class Assert{
-	public function __construct()
+	
+	protected $callable;
+	
+	public function __construct($callable)
 	{
-		
+		$this->callable = $callable;
+	}
+	
+	public function assert($item, $context){
+		return $this->call($item,$context);
+	}
+	
+	protected function call($item, $context){
+		try{
+			$result = call_user_func_array($this->callable, [$item, $context]);
+			return $result;
+		} catch (Exception $ex) {
+
+		}
+		return false;
 	}
 }
 

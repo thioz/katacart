@@ -40,15 +40,37 @@ class Container
 		$this->rules[] = $rule;
 	}
 	
+	public function cart(){
+		return $this->cart;
+	}
+	
 	/**
-	 * Process the rules we have set 
+	 * Process the rules
+	 * Since rules have the ability to cancel the processing chain it's only logical that 
+	 * we iterate through the rules and then throught al the items 
 	 */
 	public function process(){
 		
-		$context = new Context();
+		$context = new Context($this);
 		foreach($this->rules as $rule){
+			// check if the context has been cancelled
+			if($context->cancelled()){
+				return $context;
+			}
 			
+			foreach($this->cart->items() as $item){
+				// check if the context has been cancelled
+				if($context->cancelled()){
+					break;
+				}
+				
+				// check if the rule applies to this item
+				if($rule->applies($item)){
+					$rule->apply($item, $context);
+				}
+			}
 		}
+		return $context;
 	}
 	
 	/**

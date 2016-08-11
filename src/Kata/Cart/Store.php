@@ -19,11 +19,4 @@ abstract class Store {
 	
 	public abstract function addItem(Item $item);
 	
-	
-	public function itemsByProductId($productId){
-		$items = [];
-		foreach($this->items() as $item){
-			
-		}
-	}
 }

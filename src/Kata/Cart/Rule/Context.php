@@ -25,6 +25,25 @@ class Context
 	protected $log = [];
 	
 	/**
+	 *
+	 * @var Container
+	 */
+	protected $container;
+	
+	public function __construct(Container $container)
+	{
+		$this->container = $container;
+	}
+	
+	/**
+	 * getter for the container so the rules can access the cart as well 
+	 * @return Container
+	 */
+	public function container(){
+		return $this->container;
+	}
+	
+	/**
 	 * Stop the processing chain
 	 * @return \Kata\Cart\Rule\Context
 	 */

@@ -1,6 +1,7 @@
 <?php
 namespace Kata\Cart\Store;
 
+use Kata\Cart\Item;
 use Kata\Cart\Store;
 /* 
  * Simple in memory store for KataCart
