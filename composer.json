@@ -8,9 +8,8 @@
     ],
     "require": {},
     "autoload":{
-      "prs-0" : {
-			"Kata\\": "vendor/thioz/katakart/src/Kata"       
-
-      }
+        "psr-4": {
+            "Kata\\": "src/Kata/"
+        }
     }
 }
