@@ -161,6 +161,14 @@ class Item
 	}
 	
 	/**
+	 * unit description getter
+	 * @return string
+	 */
+	public function unitdescription(){
+		return $this->unitDescription;
+	}
+	
+	/**
 	 * Wrapper function to recalculate the total item amount and return it;
 	 * @return type
 	 */
